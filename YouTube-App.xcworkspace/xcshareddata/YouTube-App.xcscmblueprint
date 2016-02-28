@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7183FA53815A211C1C3EF3AC5E54888B75EB0C38",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "22AFC0063BA71FF50A515BD0550E0791A66CA44B" : 0,
+    "7183FA53815A211C1C3EF3AC5E54888B75EB0C38" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F0C18715-C473-4BC2-9616-CFF98D416E03",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "22AFC0063BA71FF50A515BD0550E0791A66CA44B" : "",
+    "7183FA53815A211C1C3EF3AC5E54888B75EB0C38" : "YouTube-App"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "YouTube-App",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "YouTube-App.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mrackwitz\/MRProgress",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "22AFC0063BA71FF50A515BD0550E0791A66CA44B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AunShiLord\/YouTube-App.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7183FA53815A211C1C3EF3AC5E54888B75EB0C38"
+    }
+  ]
+}

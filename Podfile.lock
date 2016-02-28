@@ -20,6 +20,13 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CJPAdController (1.7.1):
+    - Google-Mobile-Ads-SDK (~> 7.5)
+  - DateTools (1.7.0)
+  - Google-Mobile-Ads-SDK (7.7.0)
+  - iRate (1.11.4)
+  - LanguagesManager (0.1)
+  - Reachability (3.2)
   - ReactiveCocoa (2.0):
     - ReactiveCocoa/Core (= 2.0)
     - ReactiveCocoa/no-arc (= 2.0)
@@ -29,16 +36,40 @@ PODS:
   - ReactiveCocoa/no-arc (2.0)
   - ReactiveCocoa/RACExtensions (2.0):
     - ReactiveCocoa/Core
+  - RMAppStoreVersionCheck (1.0.1)
+  - RNGridMenu (0.1.3)
+  - SDiPhoneVersion (1.1.2)
+  - UINavigationItem+Loading (1.1)
   - youtube-ios-player-helper (0.1.3)
 
 DEPENDENCIES:
-  - AFNetworking
-  - ReactiveCocoa (= 2.0.0)
-  - youtube-ios-player-helper (~> 0.1.1)
+  - AFNetworking (~> 2.0)
+  - CJPAdController
+  - DateTools (~> 1.7)
+  - Google-Mobile-Ads-SDK
+  - iRate
+  - LanguagesManager (~> 0.1)
+  - Reachability
+  - ReactiveCocoa (<= 2.0)
+  - RMAppStoreVersionCheck
+  - RNGridMenu (~> 0.1)
+  - SDiPhoneVersion
+  - UINavigationItem+Loading (~> 1.1)
+  - youtube-ios-player-helper (~> 0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  CJPAdController: 25d41d3d306ab55dc3ffa64174830c00f731573d
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  Google-Mobile-Ads-SDK: d290e523a6e2f223256abcbf8e0c778b55b1f04e
+  iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
+  LanguagesManager: 7f2ca7f084a7fba7b026e620b53a53126bcecae9
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
+  RMAppStoreVersionCheck: 6839166d9c4a7a321136fb1bfa9a2a2c7a1a0a66
+  RNGridMenu: c58db81f87b5473936bb1b675dc3e947c409b51d
+  SDiPhoneVersion: c52245ccaab8142701e2e7fb8f0391ba3f255b76
+  UINavigationItem+Loading: e61d7963495d8a19b6d3825d867ed60db9b218b6
   youtube-ios-player-helper: fccae0f10449976a025a95328e3c42ab521f93cb
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.39.0

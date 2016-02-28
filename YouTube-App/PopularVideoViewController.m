@@ -15,6 +15,9 @@
 
 #import "YTPlayerView.h"
 
+#import "AFNetworking.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 @interface PopularVideoViewController ()<UITableViewDelegate,
                                         UITableViewDataSource,
                                         UISearchBarDelegate,
@@ -41,6 +44,10 @@
 
 @property BOOL                                      statusBarNeeded;
 @property BOOL                                      mpRemoved;
+
+@property (strong, nonatomic) NSMutableArray        *totalString;
+
+@property(strong, nonatomic) NSMutableArray *ParsingArray; // Put that in .h file or after @interface in your .m file
 
 @end
 
@@ -609,4 +616,125 @@
     self.navigationItem.title = @"Популярное";
     [self.videoTableView reloadData];
 }
+
+- (void)playerViewDidBecomeReady:(YTPlayerView *)playerView{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Playback started" object:self];
+    
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(VideoExitFullScreen)
+    //                                                 name:UIWindowDidBecomeVisibleNotification
+    //                                               object:self.view.window];
+    //
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(VideoEnterFullScreen)
+    //                                                 name:UIWindowDidBecomeHiddenNotification
+    //                                               object:self.view.window];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(VideoExitFullScreen) name:UIWindowDidBecomeHiddenNotification object:nil];
+    
+    [self.playerView playVideo];
+}
+
+- (void)playerView:(YTPlayerView *)playerView didChangeToState:(YTPlayerState)state {
+    switch (state) {
+        case kYTPlayerStateEnded:
+            NSLog(@"Ended");
+            break;
+        case kYTPlayerStatePaused:
+            NSLog(@"Paused");
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)VideoExitFullScreen{
+    NSLog(@"VideoExitFullScreen");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Playback started" object:self];
+    
+    
+    [self.playerView playVideo];
+}
+
+- (void)VideoEnterFullScreen{
+    NSLog(@"VideoEnterFullScreen");
+}
+
+-(void)autocompleteSegesstions : (NSString *)searchWish{
+    //searchWish is the text from your search bar (self.searchBar.text)
+    
+    
+    // getting json from YouTube API
+    NSString *urlString = [NSString stringWithFormat:@"http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&client=firefox&q=%@", searchWish];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+
+        NSLog(@"%@", responseObject);
+        self.totalString = [[NSMutableArray alloc] initWithObjects:[responseObject objectAtIndex:1], nil];
+        NSLog(@"%@", self.totalString);
+         
+         
+
+
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Video playlist"
+                                                             message:[error localizedDescription]
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"Ok"
+                                                   otherButtonTitles:nil];
+         [alertView show];
+     }];
+    
+    // 5
+    [operation start];
+
+    
+//    NSString *jsonString = [NSString stringWithFormat:@"http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&client=firefox&q=%@", searchWish];
+//    NSString *URLString = [jsonString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; // Encoding to identify where, for example, there are spaces in your query.
+//    
+//    
+//    NSLog(@"%@", URLString);
+//    
+//    NSData *allVideosData = [[NSData alloc]initWithContentsOfURL:[[NSURL alloc]initWithString:URLString]];
+//    
+//    NSString *str = [[NSString alloc]initWithData:allVideosData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@", str); //Now you have NSString contain JSON.
+//    NSString *json = nil;
+//    NSScanner *scanner = [NSScanner scannerWithString:str];
+//    [scanner scanUpToString:@"[[" intoString:NULL]; // Scan to where the JSON begins
+//    [scanner scanUpToString:@"]]" intoString:&json];
+//    //The idea is to identify where the "real" JSON begins and ends.
+//    json = [NSString stringWithFormat:@"%@%@", json, @"]]"];
+//    NSLog(@"json = %@", json);
+//    
+//    
+//    NSArray *jsonObject = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] //Push all the JSON autocomplete detail in to jsonObject array.
+//                                                          options:0 error:NULL];
+//    self.ParsingArray = [[NSMutableArray alloc]init]; //array that contains the objects.
+//    for (int i=0; i != [jsonObject count]; i++) {
+//        for (int j=0; j != 1; j++) {
+//            NSLog(@"%@", [[jsonObject objectAtIndex:i] objectAtIndex:j]);
+//            [self.ParsingArray addObject:[[jsonObject objectAtIndex:i] objectAtIndex:j]];
+//            //Parse the JSON here...
+//            
+//        }
+//        
+//    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    [self autocompleteSegesstions:self.searchController.searchBar.text];
+}
+
+
 @end
