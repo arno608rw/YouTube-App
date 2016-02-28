@@ -438,7 +438,7 @@
     if (self.isSearch)
         return 88;
     else
-        return 320;
+        return 296;
 }
 
 #pragma mark Gesture Recognizers
