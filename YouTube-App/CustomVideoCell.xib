@@ -87,7 +87,7 @@
                 <outlet property="title" destination="vt4-NR-CLT" id="0kb-cw-gMH"/>
                 <outlet property="viewCount" destination="9Ir-Ue-Y9X" id="lxF-yK-7f7"/>
             </connections>
-            <point key="canvasLocation" x="249" y="366.5"/>
+            <point key="canvasLocation" x="609" y="336.5"/>
         </tableViewCell>
     </objects>
     <resources>

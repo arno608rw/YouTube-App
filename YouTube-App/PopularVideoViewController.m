@@ -388,7 +388,6 @@
                                  @"fs": @1,
                                  @"theme" :@"light"
                                  
-                                 
                                  };
     
     //NSDictionary *playerParams = @{@"videoId" : youTubeVideo.videoID, @"playerVars" : playerVars};
