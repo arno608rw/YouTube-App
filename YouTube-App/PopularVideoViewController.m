@@ -676,9 +676,22 @@
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
 
-        NSLog(@"%@", responseObject);
-        self.totalString = [[NSMutableArray alloc] initWithObjects:[responseObject objectAtIndex:1], nil];
-        NSLog(@"%@", self.totalString);
+         NSLog(@"%@", responseObject);
+         self.totalString = [[NSMutableArray alloc] initWithObjects:[responseObject objectAtIndex:1], nil];
+         NSLog(@"%@", self.totalString);
+         
+//         if ([[self.totalString objectAtIndex:0] count] >= 1) {
+//             //NSArray *suffixs = @[@"163.com", @"qq.com", @"126.com", @"vip.188.com", @"188.com"];
+//             self.autoCompleteSuffixView = [[AutoCompleteSuffixView alloc] initWithInputField:self.ursTextField
+//                                                                                      suffixs:[self.totalString objectAtIndex:0]];
+//             self.autoCompleteSuffixView.tag = 99;
+//             
+//             [self.view addSubview:self.autoCompleteSuffixView];
+//             
+//             //you can use the original UITextField's delegate too.
+//             //self.ursTextField.delegate = self;
+//             
+//         }
          
          
 

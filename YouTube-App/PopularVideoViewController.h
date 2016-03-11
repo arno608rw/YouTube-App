@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AutoCompleteSuffixView.h"
 @class VideoViewController;
 
 @interface PopularVideoViewController : UIViewController
@@ -14,5 +15,8 @@
 @property (strong, nonatomic) VideoViewController *videoViewController;
 @property (strong, nonatomic) UINavigationController *videoNavigationController;
 
+@property (nonatomic, strong) AutoCompleteSuffixView *autoCompleteSuffixView;
+
+@property (weak, nonatomic) UITextField *ursTextField;
 
 @end
