@@ -274,8 +274,9 @@
 
 - (void)getPopularVideoList
 {
-    self.popularVideoList = [YouTubeTools popularVideoArrayWithMaxResults:@"25"
-                                             withCompletitionBlock:^()
+//    self.popularVideoList = [YouTubeTools popularVideoArrayWithMaxResults:@"25"
+//                                             withCompletitionBlock:^()
+    self.popularVideoList = [YouTubeTools popularVideoListArrayWithMaxResults:@"25" videoCategoryId:@"" regionCode:@"TH" withCompletitionBlock:^()
                       {
                           self.isSearch = NO;
                           [self.videoTableView reloadData];
@@ -351,11 +352,22 @@
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
     [cell.previewImage setImageWithURL: [NSURL URLWithString: youTubeVideo.previewUrl]];
     cell.title.text = youTubeVideo.title;
-    cell.likeCount.text = youTubeVideo.likesCount;
-    cell.dislikeCount.text = youTubeVideo.dislikesCount;
+    
+    NSNumberFormatter *aFormatter = [NSNumberFormatter new];
+    [aFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    NSNumber *myNumberLikesCount = [aFormatter numberFromString:youTubeVideo.likesCount];
+    cell.likeCount.text = [NSString stringWithFormat:@"%@", [aFormatter stringFromNumber:myNumberLikesCount]];
+    
+    NSNumber *myNumberDislikesCount = [aFormatter numberFromString:youTubeVideo.dislikesCount];
+    cell.dislikeCount.text = [NSString stringWithFormat:@"%@", [aFormatter stringFromNumber:myNumberDislikesCount]];
+    
     //cell.likeCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
     cell.chanelTitle.text = youTubeVideo.channelTitle;
-    cell.viewCount.text = [NSString stringWithFormat:@"View: %@", youTubeVideo.viewsCount];
+    
+    
+    NSNumber *myNumberViewsCount = [aFormatter numberFromString:youTubeVideo.viewsCount];
+    cell.viewCount.text = [NSString stringWithFormat:@"View: %@", [aFormatter stringFromNumber:myNumberViewsCount]];
     
     cell.time.text = youTubeVideo.duration;
     

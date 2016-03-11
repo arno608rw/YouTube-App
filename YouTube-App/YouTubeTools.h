@@ -23,6 +23,8 @@
                                    maxResults:(NSString *) maxResults
                         withCompletitionBlock:(void (^)() ) reloadData;
 
++ (NSMutableArray *) popularVideoListArrayWithMaxResults:(NSString *)maxResults videoCategoryId:(NSString *) videoCategoryId regionCode:(NSString *)regionCode withCompletitionBlock:(void (^)())reloadData;
+
 //+ (RACSignal*)detailedVideoInfoForId: (NSString *) videoId;
 //+ (YouTubeVideo *) detailedVideoInfoForId: (NSString *) videoId;
 @end
