@@ -57,7 +57,7 @@
      */
     [CJPAdController sharedInstance].adNetworks = @[@(CJPAdNetworkAdMob), @(CJPAdNetworkiAd)/*,@(CJPAdNetworkAdMob)*/];
     [CJPAdController sharedInstance].adPosition = CJPAdPositionBottom;
-    [CJPAdController sharedInstance].initialDelay = 5.0;
+    [CJPAdController sharedInstance].initialDelay = 15.0;
     // AdMob specific
     [CJPAdController sharedInstance].adMobUnitID = self.interstitialAdUnitID;
     [CJPAdController sharedInstance].useAdMobSmartSize = YES;

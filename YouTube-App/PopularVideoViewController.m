@@ -62,7 +62,7 @@
     
     if (self)
     {
-        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Назад"
+        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                                style:UIBarButtonItemStyleDone
                                                                               target:self
                                                                               action:@selector(backToPopular)];
@@ -72,7 +72,7 @@
         self.navigationItem.leftBarButtonItem.enabled = NO;
 
 
-        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Поиск"
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search"
                                                                                style:UIBarButtonItemStyleDone
                                                                               target:self
                                                                               action:@selector(searchIconButtonClicked)];
@@ -95,7 +95,7 @@
     [self.searchController setHidesNavigationBarDuringPresentation:NO];
     [self.searchController.searchBar sizeToFit];
     self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"Ищи самое интересное!";
+    self.searchController.searchBar.placeholder = @"Search...";
     
     //self.searchController.active = NO;
     
@@ -111,7 +111,7 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.barTintColor = [UIColor redColor];
     //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationItem.title = @"Популярное";
+    self.navigationItem.title = @"UTube";
     //self.navigationController.navigationBar.translucent = NO;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -280,7 +280,7 @@
                           self.isSearch = NO;
                           [self.videoTableView reloadData];
                           [self.refreshControl endRefreshing];
-                          self.navigationItem.title = @"Популярное";
+                          self.navigationItem.title = @"UTube";
                       }
                       ];
     self.isSearch = NO;
@@ -301,7 +301,7 @@
                           self.isSearch = YES;
                           self.navigationItem.leftBarButtonItem.enabled = YES;
                           [self.videoTableView reloadData];
-                          self.navigationItem.title = @"Поиск";
+                          self.navigationItem.title = @"Search";
                       }
                       ];
     [self.view endEditing:YES];
@@ -355,7 +355,7 @@
     cell.dislikeCount.text = youTubeVideo.dislikesCount;
     //cell.likeCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
     cell.chanelTitle.text = youTubeVideo.channelTitle;
-    cell.viewCount.text = [NSString stringWithFormat:@"Просмотров: %@", youTubeVideo.viewsCount];
+    cell.viewCount.text = [NSString stringWithFormat:@"View: %@", youTubeVideo.viewsCount];
     
     cell.time.text = youTubeVideo.duration;
     
@@ -612,7 +612,7 @@
 {
     self.navigationItem.leftBarButtonItem.enabled = NO;
     self.isSearch = NO;
-    self.navigationItem.title = @"Популярное";
+    self.navigationItem.title = @"UTube";
     [self.videoTableView reloadData];
 }
 

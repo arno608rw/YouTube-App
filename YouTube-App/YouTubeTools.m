@@ -28,6 +28,8 @@
     NSString *playlistID = @"PLgMaGEI-ZiiZ0ZvUtduoDRVXcU5ELjPcI";
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%%2CcontentDetails&maxResults=%@&playlistId=%@&fields=items%%2Fsnippet&key=%@", maxResults, playlistID, [self developerKey]];
     
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?key=%@&chart=mostPopular&part=snippet", [self developerKey]]];
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -67,6 +69,99 @@
              
          }
 
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Video playlist"
+                                                             message:[error localizedDescription]
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"Ok"
+                                                   otherButtonTitles:nil];
+         [alertView show];
+     }];
+    
+    // 5
+    [operation start];
+    return videoList;
+}
+
++ (NSMutableArray *) popularVideoListArrayWithMaxResults:(NSString *)maxResults videoCategoryId:(NSString *) videoCategoryId regionCode:(NSString *)regionCode withCompletitionBlock:(void (^)())reloadData;
+{
+    
+    NSMutableArray *options = nil;
+    
+    options = [[NSMutableArray alloc] init];
+    
+    if (nil != videoCategoryId) {
+        [options addObject:[NSString stringWithFormat:@"videoCategoryId=%@", [videoCategoryId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    }
+    if (nil != maxResults) {
+        [options addObject:[NSString stringWithFormat:@"maxResults=%@", [maxResults stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    }
+    if (nil != regionCode) {
+        [options addObject:[NSString stringWithFormat:@"regionCode=%@", [regionCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    }
+    
+    [options addObject:[NSString stringWithFormat:@"fields=%@", @"items%2Fid%2CnextPageToken%2CprevPageToken"]];
+    
+    NSMutableString *optionsParameters = [NSMutableString stringWithString: @""];
+    for (NSString *item in options) {
+        
+        [optionsParameters appendString: [NSString stringWithFormat:@"&%@", item]]; // Modify string2
+        
+    }
+    
+    // getting json from YouTube API
+    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular%@&key=%@", optionsParameters, [self developerKey]];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    NSMutableArray *videoList = [[NSMutableArray alloc] init];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSDictionary *items = [responseObject objectForKey:@"items"];
+         
+         if ([items count] <= 0) {
+             __block YouTubeVideo *youTubeVideoNull = [[YouTubeVideo alloc] init];
+             youTubeVideoNull.checkItems = @"NO";
+             [videoList addObject:youTubeVideoNull];
+             reloadData();
+         }
+         
+         int count = 0;
+         for (NSDictionary *item in items )
+         {
+             //NSDictionary* snippet = [item objectForKey:@"snippet"];
+             
+             __block YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
+             youTubeVideo.sortID = count;
+             count+=1;
+             NSString *videoID = [item objectForKey:@"id"];
+             youTubeVideo.nextPageToken = [responseObject objectForKey:@"nextPageToken"];
+             youTubeVideo.checkItems = @"YES";
+             [[self responceForDetailedVideoInfoForId:videoID] subscribeNext:^(id detailedResponce)
+              {
+                  [self detailedVideoInfo:youTubeVideo withJSON:detailedResponce];
+                  [videoList addObject:youTubeVideo];
+                  
+                  if ([videoList count] == [items count])
+                  {
+                      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortID"
+                                                                                     ascending:YES];
+                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                      [videoList sortUsingDescriptors:sortDescriptors];
+                      reloadData();
+                  }
+                  
+              }];
+             
+         }
+         
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          

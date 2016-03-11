@@ -26,6 +26,10 @@
 @property (strong, nonatomic) NSString *dislikesCount;
 @property (strong, nonatomic) NSString *commentCount;
 
+@property (strong, nonatomic) NSString *nextPageToken;
+//@property (strong, nonatomic) NSString *prevPageToken;
+@property (strong, nonatomic) NSString *checkItems;
+
 - (void)testPrint;
 
 @end
